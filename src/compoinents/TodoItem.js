@@ -11,12 +11,12 @@ class TodoItem extends Component {
         let urlImg = checkImg;
         if (item.isComplete) urlImg = checkedImg;
         return (
-            <div onClick={onClick}
+            <div
                 className={classNames({
                     'todoList': true,
                     'todoList-done': item.isComplete,
                 })}>
-                <img src={urlImg} alt="" width="40px" />
+                <img onClick={onClick} src={urlImg} alt="" width="40px" />
                 <p>{item.title}</p>
             </div>
         )
