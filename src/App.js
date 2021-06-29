@@ -1,25 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { Component } from 'react';
+import TodoItem from './compoinents/TodoItem'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      todoItems: [
+        { title: 'Đi ngủ', isComplete: true },
+        { title: 'Đi ỉa', isComplete: true },
+        { title: 'Đi câu cá', isComplete: false },
+      ]
+    }
+  }
+  onItemClick(item) {
+    return (event) => {
+      const isComplete = item.isComplete;
+      const { todoItems } = this.state;
+      this.setState({
+          todoItems: todoItems.map(todo => 
+            todo !== item ? { ...todo } : { ...todo, isComplete: !todo.isComplete }
+          )
+        });
+    }
+
+  }
+  render() {
+    const { todoItems } = this.state;
+    return (
+      <div className="App">
+        {
+          todoItems.length && todoItems.map((item, index) =>
+            <TodoItem key={index} item={item} onClick={this.onItemClick(item)} />
+          )
+        }
+
+      </div>
+    );
+  }
 }
 
 export default App;
